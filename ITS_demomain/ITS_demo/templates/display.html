@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Q1</title>
+    <style>
+        .correct{
+        display:none;
+        }
+        .wrong{
+        display:none;
+        }
+    </style>
+</head>
+<script type="text/javascript" src="http://ajax.googleapis.com/
+ajax/libs/jquery/1.5/jquery.min.js"></script>
+<script type="text/javascript" src="jquery.form.js"></script>
+<script src="https://use.fontawesome.com/84eb6ff010.js"></script>
+<script type="text/javascript">
+function demo(){
+    var im = document.getElementById("correct").src;
+    document.getElementById("s").innerHTML = im;
+}
+
+var x = document.getElementsByClassName("correct");
+var y = document.getElementsByClassName("wrong");
+
+function check0()
+{
+	if(document.getElementsByTagName("input")[0].value == {{ answer.b0 }})
+	{
+	     $(x[0]).show();
+	     $(y[0]).hide();
+    }
+	 else
+	 {
+        $(x[0]).hide();
+        $(y[0]).show();
+	    document.getElementsByTagName("input")[0].value = "";
+	 }
+}
+
+function check1()
+{
+	if(document.getElementsByTagName("input")[1].value == {{ answer.b1 }})
+	{
+	    $(x[1]).show();
+	    $(y[1]).hide();
+    }
+	 else
+	 {
+	    $(x[1]).hide();
+        $(y[1]).show();
+	    document.getElementsByTagName("input")[1].value = "";
+	 }
+}
+
+function check2()
+{
+	if(document.getElementsByTagName("input")[3].value == {{ answer.b2 }})
+	{
+	   $(x[3]).show();
+	   $(y[3]).hide();
+	  }
+	else
+	{
+	    $(x[3]).hide();
+        $(y[3]).show();
+    }
+}
+
+function check3()
+{
+	if(document.getElementsByTagName("input")[2].value == {{ answer.b3 }})
+	{
+         $(x[2]).show();
+	     $(y[2]).hide();
+	}
+	else
+	{
+	    $(x[2]).hide();
+        $(y[2]).show();
+	    document.getElementsByTagName("input")[2].value = "";
+	}
+}
+
+function check4()
+{
+	if(document.getElementsByTagName("input")[4].value == {{ answer.b4}})
+	{
+        $(x[4]).show();
+	    $(y[4]).hide();
+	}
+	else
+	{
+	    $(x[4]).hide();
+        $(y[4]).show();
+	    document.getElementsByTagName("input")[4].value = "";
+	}
+}
+</script>
+<body>
+<form method="post">
+
+    {{ answer.que }}
+    <br><br>
+
+    <label for="quo">Quotient:</label>
+    <input type="text" id="quo" name="quo" maxlength="2" size="2" onkeyup="check0();">
+    <img src="{{ url_for('static', filename='images/tick.png') }}" width="32px" height="22px" class="correct">
+    <img src="{{ url_for('static', filename='images/cross.jpg') }}" width="32px" height="22px" class="wrong">
+    <br><br>
+
+    <label for="rem">Remainder:</label>
+    <input type="text" id="rem" name="rem" maxlength="2" size="2" onkeyup="check1();">
+    <img src="{{ url_for('static', filename='images/tick.png') }}" width="32px" height="22px" class="correct">
+    <img src="{{ url_for('static', filename='images/cross.jpg') }}" width="32px" height="22px" class="wrong">
+    <br><br>
+
+    <label for="mf1">Mixed Fraction:</label>
+    <br>
+    <table>
+        <tr>
+<!--               numerator-->
+            <td></td>
+            <td><input type="text" id="mf2" name="mf" maxlength="2" size="2" onkeyup="check3();"></td>
+            <td><img src="{{ url_for('static', filename='images/tick.png') }}" width="32px" height="22px" class="correct"></td>
+            <td><img src="{{ url_for('static', filename='images/cross.jpg') }}" width="32px" height="22px" class="wrong"></td>
+        </tr>
+
+        <tr>
+
+<!--                mixed fraction-->
+            <td><input type="text" id="mf1" name="mf" maxlength="2" size="2" onkeyup="check2();"></td>
+            <td><hr/></td>
+            <td><img src="{{ url_for('static', filename='images/tick.png') }}" width="32px" height="22px" class="correct"></td>
+            <td><img src="{{ url_for('static', filename='images/cross.jpg') }}" width="32px" height="22px" class="wrong"></td>
+
+        </tr>
+
+        <tr>
+<!--                denominator-->
+            <td></td>
+            <td><input type="text" id="mf3" name="mf" maxlength="2" size="2" style="border" onkeyup="check4();"></td>
+            <td><img src="{{ url_for('static', filename='images/tick.png') }}" width="32px" height="22px" class="correct"></td>
+            <td><img src="{{ url_for('static', filename='images/cross.jpg') }}" width="32px" height="22px" class="wrong"></td>
+        </tr>
+    </table>
+<!--    <input type="text" id="mf1" name="mf" maxlength="2" size="2" onkeyup="check2();">{{ answer.b2 }}-->
+<!--    <input type="text" id="mf2" name="mf" maxlength="2" size="2" onkeyup="check3();">{{ answer.b3 }}-->
+<!--    <br>&nbsp;-&#45;&#45;<br>-->
+<!--    <input type="text" id="mf3" name="mf" maxlength="2" size="2" style="border" onkeyup="check4();">{{ answer.b4 }}-->
+    <br><br>
+    <input type="submit" value="Submit" onclick="check();">
+</form>
+</body>
+</html>
