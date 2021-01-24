@@ -17,6 +17,7 @@ ajax/libs/jquery/1.5/jquery.min.js"></script>
 <script type="text/javascript" src="jquery.form.js"></script>
 <script src="https://use.fontawesome.com/84eb6ff010.js"></script>
 <script type="text/javascript">
+window.onload = function() {
 function demo(){
     var im = document.getElementById("correct").src;
     document.getElementById("s").innerHTML = im;
@@ -24,6 +25,7 @@ function demo(){
 
 var x = document.getElementsByClassName("correct");
 var y = document.getElementsByClassName("wrong");
+
 
 function check0()
 {
@@ -66,6 +68,7 @@ function check2()
 	{
 	    $(x[3]).hide();
         $(y[3]).show();
+        document.getElementsByTagName("input")[3].value = "";
     }
 }
 
@@ -98,8 +101,27 @@ function check4()
 	    document.getElementsByTagName("input")[4].value = "";
 	}
 }
+
+var count = 0;
+var countButton = document.getElementById("hint-btn");
+var displayCount = document.getElementsByClassName("showhints");
+countButton.onclick = function(){
+  count++;
+  if(count == 1){
+  displayCount[0].innerHTML = "Hint 1 :{{ hints.h1 }}\n" ;}
+  else{
+  if(count == 2) {displayCount[1].innerHTML = "Hint 2 :{{ hints.h2 }}\n" ;}
+  else {displayCount[2].innerHTML = "Hint 3 :{{ hints.h3 }}\n" ;}
+  }
+}
+
+}
 </script>
 <body>
+
+<div class = "showhints" id="showhint1" style="position:absolute; left:35%; height:200px; width:200px;"></div>
+<div class = "showhints" id="showhint2" style="position:absolute; left:35%; top:50px; height:200px; width:200px;"></div>
+<div class = "showhints" id="showhint3" style="position:absolute; left:35%; top:100px; height:200px; width:200px;"></div>
 <form method="post">
 
     {{ answer.que }}
@@ -146,12 +168,11 @@ function check4()
             <td><img src="{{ url_for('static', filename='images/cross.jpg') }}" width="32px" height="22px" class="wrong"></td>
         </tr>
     </table>
-<!--    <input type="text" id="mf1" name="mf" maxlength="2" size="2" onkeyup="check2();">{{ answer.b2 }}-->
-<!--    <input type="text" id="mf2" name="mf" maxlength="2" size="2" onkeyup="check3();">{{ answer.b3 }}-->
-<!--    <br>&nbsp;-&#45;&#45;<br>-->
-<!--    <input type="text" id="mf3" name="mf" maxlength="2" size="2" style="border" onkeyup="check4();">{{ answer.b4 }}-->
     <br><br>
     <input type="submit" value="Submit" onclick="check();">
+    <input type="button" class="hint-btn" id="hint-btn" value="Hint" target = "_self">
 </form>
+
+
 </body>
 </html>
