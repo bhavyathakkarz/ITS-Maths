@@ -1,7 +1,8 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from fractions import Fraction
 import random
 import os
+
 
 app = Flask(__name__)
 
@@ -27,5 +28,13 @@ def question():
     hints = {'h1': hint1, 'h2':hint2, 'h3':hint3}
     return render_template('display.html', answer=answer, hints=hints)
 
-
+@app.route('/score',methods = ['POST'])
+def score():
+    if request.method=='POST':
+        #marks=25-(counter*5)
+        #print(marks)
+        a1=request.form['quo']
+        print(a1)
+    else:
+        print("Pass")
 app.run(debug=True)
