@@ -10,6 +10,9 @@
         .wrong{
         display:none;
         }
+        #countvalue{
+        display:none;
+        }
     </style>
 </head>
 <script type="text/javascript" src="http://ajax.googleapis.com/
@@ -17,11 +20,6 @@ ajax/libs/jquery/1.5/jquery.min.js"></script>
 <script type="text/javascript" src="jquery.form.js"></script>
 <script src="https://use.fontawesome.com/84eb6ff010.js"></script>
 <script type="text/javascript">
-window.onload = function() {
-function demo(){
-    var im = document.getElementById("correct").src;
-    document.getElementById("s").innerHTML = im;
-}
 
 var x = document.getElementsByClassName("correct");
 var y = document.getElementsByClassName("wrong");
@@ -101,29 +99,32 @@ function check4()
 	    document.getElementsByTagName("input")[4].value = "";
 	}
 }
-
+window.onload = function() {
 var count = 0;
 var countButton = document.getElementById("hint-btn");
 var displayCount = document.getElementsByClassName("showhints");
 countButton.onclick = function(){
   count++;
-  if(count == 1){
-  displayCount[0].innerHTML = "Hint 1 :{{ hints.h1 }}\n" ;}
-  else{
-  if(count == 2) {displayCount[1].innerHTML = "Hint 2 :{{ hints.h2 }}\n" ;}
-  else {displayCount[2].innerHTML = "Hint 3 :{{ hints.h3 }}\n" ;}
+  if(count == 1)
+  {
+  displayCount[0].innerHTML = "Hint 1 :{{ hints.h1 }}\n" ;
   }
+  else
+  {
+    if(count == 2) {displayCount[1].innerHTML = "Hint 2 :{{ hints.h2 }}\n" ;}
+    else {displayCount[2].innerHTML = "Hint 3 :{{ hints.h3 }}\n" ;}
+  }
+  document.querySelector(".myform").setAttribute("action","score/"+count)
+}
 }
 
-}
 </script>
-<body>
 
+<body>
 <div class = "showhints" id="showhint1" style="position:absolute; left:35%; height:200px; width:200px;"></div>
 <div class = "showhints" id="showhint2" style="position:absolute; left:35%; top:50px; height:200px; width:200px;"></div>
 <div class = "showhints" id="showhint3" style="position:absolute; left:35%; top:100px; height:200px; width:200px;"></div>
-<form method="post" action="{{url_for('score')}}">
-
+<form method="post" action= "{{ url_for('score',counter = 0) }}" class="myform" >
     {{ answer.que }}
     <br><br>
 
@@ -169,10 +170,9 @@ countButton.onclick = function(){
         </tr>
     </table>
     <br><br>
-    <input type="submit" value="Submit">
+    <input type="submit" value="Submit" onclick="submission()">
     <input type="button" class="hint-btn" id="hint-btn" value="Hint" target = "_self">
 </form>
-
 
 </body>
 </html>
