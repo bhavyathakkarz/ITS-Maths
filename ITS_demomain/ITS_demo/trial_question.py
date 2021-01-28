@@ -32,12 +32,8 @@ def question():
 @app.route('/score/<counter>', methods=['POST'])
 def score(counter):
     if request.method == 'POST':
-        #counter = request.form['countvalue']
-        #counter = request.json['share']
         marks = 25-(int(counter)*5)
         print(marks)
-        a1 = request.form['quo']
-        print(a1)
     else:
         print("Pass")
     strm = "your marks : "+str(marks)

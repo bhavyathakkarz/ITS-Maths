@@ -113,18 +113,18 @@ countButton.onclick = function(){
   {
     if(count == 2) {displayCount[1].innerHTML = "Hint 2 :{{ hints.h2 }}\n" ;}
     else {displayCount[2].innerHTML = "Hint 3 :{{ hints.h3 }}\n" ;}
-
   }
+  document.querySelector(".myform").setAttribute("action","score/"+count)
 }
 }
-console.log(document.querySelector(".myform"))
+
 </script>
 
 <body>
 <div class = "showhints" id="showhint1" style="position:absolute; left:35%; height:200px; width:200px;"></div>
 <div class = "showhints" id="showhint2" style="position:absolute; left:35%; top:50px; height:200px; width:200px;"></div>
 <div class = "showhints" id="showhint3" style="position:absolute; left:35%; top:100px; height:200px; width:200px;"></div>
-<form method="post" action= "" class="myform" >
+<form method="post" action= "{{ url_for('score',counter = 0) }}" class="myform" >
     {{ answer.que }}
     <br><br>
 
@@ -170,7 +170,7 @@ console.log(document.querySelector(".myform"))
         </tr>
     </table>
     <br><br>
-    <input type="submit" value="Submit">
+    <input type="submit" value="Submit" onclick="submission()">
     <input type="button" class="hint-btn" id="hint-btn" value="Hint" target = "_self">
 </form>
 
