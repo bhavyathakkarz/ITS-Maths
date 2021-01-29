@@ -6,7 +6,7 @@ import os
 
 app = Flask(__name__)
 
-values = [Fraction('25/8'), Fraction('17/4'), Fraction('38/7')]
+values = [Fraction('25/8'), Fraction('17/4'), Fraction('38/7'), Fraction('29/3'), Fraction('44/5')]
 Image_folder = os.path.join('static', 'images')
 
 app.config['UPLOAD_FOLDER'] = Image_folder
