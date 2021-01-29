@@ -34,10 +34,19 @@ def score(counter):
     if request.method == 'POST':
         marks = 25-(int(counter)*5)
         print(marks)
+        if marks==25:
+            comment="Well Done"
+        elif marks==20:
+            comment="You have just about mastered it"
+        elif marks==15:
+            comment="Keep working on it you are improving"
+        else:
+            comment="That's not half bad"
     else:
         print("Pass")
-    strm = "your marks : "+str(marks)
-    return strm
+
+    result={'marks':marks,'comment':comment}
+    return render_template('card.html',result=result)
 
 
 app.run(debug=True)
