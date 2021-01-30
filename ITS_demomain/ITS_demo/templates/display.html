@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Q1</title>
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         .correct{
         display:none;
@@ -123,9 +123,21 @@ countButton.onclick = function(){
 </script>
 
 <body>
+<div>
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+<div class="alert alert-success" role="alert">
+    {% for message in get_flashed_messages() %}
+  <h4 class="alert-heading">{{ message }}</h4>
+    {% endfor %}
+</div>
+  {% endif %}
+{% endwith %}
+</div>
 <div class = "showhints" id="showhint1" style="position:absolute; left:35%; height:200px; width:200px;"></div>
 <div class = "showhints" id="showhint2" style="position:absolute; left:35%; top:50px; height:200px; width:200px;"></div>
 <div class = "showhints" id="showhint3" style="position:absolute; left:35%; top:100px; height:200px; width:200px;"></div>
+
 <form method="post" action= "{{url_for('score',counter = 0)}}" class="myform" >
     {{ answer.que }}
     <br><br>
