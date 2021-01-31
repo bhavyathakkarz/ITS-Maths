@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Q1</title>
+
     <style>
         .correct{
         display:none;
@@ -113,29 +114,30 @@ countButton.onclick = function(){
   {
     if(count == 2) {displayCount[1].innerHTML = "Hint 2 :{{ hints.h2 }}\n" ;}
     else {displayCount[2].innerHTML = "Hint 3 :{{ hints.h3 }}\n" ;}
-
   }
+  document.querySelector(".myform").setAttribute("action","score/"+count)
+
 }
 }
-console.log(document.querySelector(".myform"))
+
 </script>
 
 <body>
 <div class = "showhints" id="showhint1" style="position:absolute; left:35%; height:200px; width:200px;"></div>
 <div class = "showhints" id="showhint2" style="position:absolute; left:35%; top:50px; height:200px; width:200px;"></div>
 <div class = "showhints" id="showhint3" style="position:absolute; left:35%; top:100px; height:200px; width:200px;"></div>
-<form method="post" action= "" class="myform" >
+<form method="post" action= "{{url_for('score',counter = 0)}}" class="myform" >
     {{ answer.que }}
     <br><br>
 
     <label for="quo">Quotient:</label>
-    <input type="text" id="quo" name="quo" maxlength="2" size="2" onkeyup="check0();">
+    <input type="text" id="quo" name="quo" maxlength="2" size="2" onkeyup="check0();" required>
     <img src="{{ url_for('static', filename='images/tick.png') }}" width="32px" height="22px" class="correct">
     <img src="{{ url_for('static', filename='images/cross.jpg') }}" width="32px" height="22px" class="wrong">
     <br><br>
 
     <label for="rem">Remainder:</label>
-    <input type="text" id="rem" name="rem" maxlength="2" size="2" onkeyup="check1();">
+    <input type="text" id="rem" name="rem" maxlength="2" size="2" onkeyup="check1();" required>
     <img src="{{ url_for('static', filename='images/tick.png') }}" width="32px" height="22px" class="correct">
     <img src="{{ url_for('static', filename='images/cross.jpg') }}" width="32px" height="22px" class="wrong">
     <br><br>
@@ -146,7 +148,7 @@ console.log(document.querySelector(".myform"))
         <tr>
 <!--               numerator-->
             <td></td>
-            <td><input type="text" id="mf2" name="mf" maxlength="2" size="2" onkeyup="check3();"></td>
+            <td><input type="text" id="mf2" name="mf" maxlength="2" size="2" onkeyup="check3();" required></td>
             <td><img src="{{ url_for('static', filename='images/tick.png') }}" width="32px" height="22px" class="correct"></td>
             <td><img src="{{ url_for('static', filename='images/cross.jpg') }}" width="32px" height="22px" class="wrong"></td>
         </tr>
@@ -154,7 +156,7 @@ console.log(document.querySelector(".myform"))
         <tr>
 
 <!--                mixed fraction-->
-            <td><input type="text" id="mf1" name="mf" maxlength="2" size="2" onkeyup="check2();"></td>
+            <td><input type="text" id="mf1" name="mf" maxlength="2" size="2" onkeyup="check2();"required></td>
             <td><hr/></td>
             <td><img src="{{ url_for('static', filename='images/tick.png') }}" width="32px" height="22px" class="correct"></td>
             <td><img src="{{ url_for('static', filename='images/cross.jpg') }}" width="32px" height="22px" class="wrong"></td>
@@ -164,15 +166,17 @@ console.log(document.querySelector(".myform"))
         <tr>
 <!--                denominator-->
             <td></td>
-            <td><input type="text" id="mf3" name="mf" maxlength="2" size="2" style="border" onkeyup="check4();"></td>
+            <td><input type="text" id="mf3" name="mf" maxlength="2" size="2" style="border" onkeyup="check4();" required></td>
             <td><img src="{{ url_for('static', filename='images/tick.png') }}" width="32px" height="22px" class="correct"></td>
             <td><img src="{{ url_for('static', filename='images/cross.jpg') }}" width="32px" height="22px" class="wrong"></td>
         </tr>
     </table>
     <br><br>
-    <input type="submit" value="Submit">
+    <input id="b1" type="submit" value="Submit" onclick="submission()">
     <input type="button" class="hint-btn" id="hint-btn" value="Hint" target = "_self">
 </form>
+
+
 
 </body>
 </html>
