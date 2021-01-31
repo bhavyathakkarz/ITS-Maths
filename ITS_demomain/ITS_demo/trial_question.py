@@ -1,12 +1,15 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, flash, redirect, url_for, session
+#from flask.ext.session import Session
 from fractions import Fraction
 import random
 import os
 
 
 app = Flask(__name__)
+#sess = session()
 
-values = [Fraction('25/8'), Fraction('17/4'), Fraction('38/7')]
+
+values = [Fraction('25/8'), Fraction('17/4'), Fraction('38/7'), Fraction('29/3'), Fraction('44/5')]
 Image_folder = os.path.join('static', 'images')
 
 app.config['UPLOAD_FOLDER'] = Image_folder
@@ -34,19 +37,25 @@ def score(counter):
     if request.method == 'POST':
         marks = 25-(int(counter)*5)
         print(marks)
-        if marks==25:
-            comment="Well Done"
-        elif marks==20:
-            comment="You have just about mastered it"
-        elif marks==15:
-            comment="Keep working on it you are improving"
+        if marks == 25:
+            comment = "Well Done!!!"
+        elif marks == 20:
+            comment = "You have just about mastered it"
+        elif marks == 15:
+            comment = "Keep working on it you are improving"
         else:
-            comment="That's not half bad"
+            comment = "That's not half bad"
     else:
         print("Pass")
 
-    result={'marks':marks,'comment':comment}
-    return render_template('card.html',result=result)
+#    result = {'marks': marks, 'comment': comment}
+    show_message1 = 'Your points : '+str(marks)+'/25.'
+    print(show_message1)
+    flash(show_message1)
+    flash(comment)
+    return redirect(url_for('question'))
+#    return render_template('card.html',result=result)
 
 
+app.secret_key = 'super secret key'
 app.run(debug=True)
