@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Q1</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         *{
         margin:0;
@@ -80,11 +81,13 @@
 ajax/libs/jquery/1.5/jquery.min.js"></script>
 <script type="text/javascript" src="jquery.form.js"></script>
 <script src="https://use.fontawesome.com/84eb6ff010.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <script type="text/javascript">
 
 var x = document.getElementsByClassName("correct");
 var y = document.getElementsByClassName("wrong");
-
+var feedcount = 0;
 function check0()
 {
 	if(document.getElementsByTagName("input")[0].value == {{ answer.b0 }})
@@ -94,9 +97,26 @@ function check0()
     }
 	 else
 	 {
+	 feedcount++;
         $(x[0]).hide();
         $(y[0]).show();
 	    document.getElementsByTagName("input")[0].value = "";
+	    swal({
+  title: "Oops, Looks like you divided wrong ",
+  text: "for example, if you divide 9/4 then quotient is 2 and remainder is 9-(4*2) = 1",
+  icon: "error",
+  button: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+    swal("Now, try again", {
+
+      icon: "success",
+    });
+  }
+});
+
 	 }
 }
 
@@ -109,9 +129,24 @@ function check1()
     }
 	 else
 	 {
+	 feedcount++;
 	    $(x[1]).hide();
         $(y[1]).show();
 	    document.getElementsByTagName("input")[1].value = "";
+	    swal({
+  title: "Oops, Looks like you divided wrong ",
+  text: "for example, if you divide 9/4 then quotient is 2 and remainder is 9-(4*2) = 1",
+  icon: "error",
+  button: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+    swal("Now try again", {
+      icon: "success",
+    });
+  }
+});
 	 }
 }
 
@@ -124,9 +159,24 @@ function check2()
 	  }
 	else
 	{
+	feedcount++;
 	    $(x[3]).hide();
         $(y[3]).show();
         document.getElementsByTagName("input")[3].value = "";
+        swal({
+  title: "Oops, Looks like you are confused in the format",
+  text: "Whole number in mixed fraction is the quotient you got in the first step",
+  icon: "error",
+  button: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+    swal("Now try again", {
+      icon: "success",
+    });
+  }
+});
     }
 }
 
@@ -139,9 +189,24 @@ function check3()
 	}
 	else
 	{
+	feedcount++;
 	    $(x[2]).hide();
         $(y[2]).show();
 	    document.getElementsByTagName("input")[2].value = "";
+	    swal({
+  title: "Oops, Looks like you are confused in the format",
+  text: "In mixed fraction, numerator is remainder you got in first step",
+  icon: "error",
+  button: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+    swal("Now try again", {
+      icon: "success",
+    });
+  }
+});
 	}
 }
 
@@ -154,13 +219,29 @@ function check4()
 	}
 	else
 	{
+	    feedcount++;
 	    $(x[4]).hide();
         $(y[4]).show();
 	    document.getElementsByTagName("input")[4].value = "";
+	    swal({
+  title: "Oops, Looks like you are confused in the format",
+  text: "Denominator in mixed fraction is same as denominator of fraction ",
+  icon: "error",
+  button: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+    swal("Now try again", {
+      icon: "success",
+    });
+  }
+});
 	}
 }
 window.onload = function() {
 var count = 0;
+
 var countButton = document.getElementById("hint-btn");
 var displayCount = document.getElementsByClassName("showhints");
 countButton.onclick = function(){
@@ -174,9 +255,8 @@ countButton.onclick = function(){
     if(count == 2) {displayCount[1].innerHTML = "Hint 2 :{{ hints.h2 }}\n" ;}
     else {displayCount[2].innerHTML = "Hint 3 :{{ hints.h3 }}\n" ;}
   }
-  document.querySelector(".myform").setAttribute("action","score/"+count)
-
-}
+  document.querySelector(".myform").setAttribute("action","score/"+count+"/"+feedcount)
+  }
 }
 
 </script>
@@ -208,7 +288,7 @@ countButton.onclick = function(){
 <div class = "showhints" id="showhint2" style="position:absolute;top:50; left:35%; top:50px; height:200px; width:200px;"></div>
 <div class = "showhints" id="showhint3" style="position:absolute;top:80%; left:35%; top:100px; height:200px; width:200px;"></div>
 </div>
-<form method="post" action= "{{url_for('score',counter = 0)}}" class="myform" id="f1">
+<form method="post" action= "{{url_for('score',counter = 0, feedback = 0)}}" class="myform" id="f1">
     {{ answer.que }}
     <br><br>
 
