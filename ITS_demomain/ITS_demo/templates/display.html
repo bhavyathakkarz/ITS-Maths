@@ -5,7 +5,52 @@
     <title>Q1</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
     <style>
+    .nav{
+        height : 100%;
+        width : 0;
+        position : fixed;
+        z-index : 1;
+        top : 0;
+        left : 0;
+        background-color : #111;
+        opacity : .9;
+        overflow-x : hidden;
+        padding-top : 60px;
+        transition : .7s;
+    }
+
+    .nav a{
+        display:block;
+        padding : 20px 30px;
+        font-size : 30px;
+        text-decoration : none;
+        color : #ccc;
+    }
+
+    .nav a:hover{
+        color : #fff;
+        transition:.4s;
+    }
+
+    .nav .close{
+        position:absolute;
+        top:0;
+        right:22px;
+        margin-left : 50px;
+    }
+
+    .slide a{
+        color : #000;
+    }
+
+    #content {
+        padding:20px;
+        transition : margin-left .7s;
+        overflow : hidden;
+        width : 100%;
+    }
         *{
         margin:0;
         padding:0;
@@ -74,7 +119,20 @@
         #countvalue{
         display:none;
         }
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
 
+.closebtn:hover {
+  color: black;
+}
     </style>
 </head>
 <script type="text/javascript" src="http://ajax.googleapis.com/
@@ -82,7 +140,12 @@ ajax/libs/jquery/1.5/jquery.min.js"></script>
 <script type="text/javascript" src="jquery.form.js"></script>
 <script src="https://use.fontawesome.com/84eb6ff010.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
+<script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+<script src="semantic/dist/semantic.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script type="text/javascript">
 
 var x = document.getElementsByClassName("correct");
@@ -259,23 +322,54 @@ countButton.onclick = function(){
   }
 }
 
+function openSlideMenu(){
+    document.getElementById('menu').style.width = '250px';
+    document.getElementById('content').style.marginLeft = '250px';
+}
+
+function closeSlideMenu(){
+    document.getElementById('menu').style.width = '0px';
+    document.getElementById('content').style.marginLeft = '0px';
+}
+
+var close = document.getElementsByClassName("closebtn");
+var i;
+
+for (i = 0; i < close.length; i++) {
+  close[i].onclick = function(){
+    var div = this.parentElement;
+    div.style.opacity = "0";
+    setTimeout(function(){ div.style.display = "none"; }, 600);
+  }
+}
 </script>
 
 <body>
-<nav class="n1">
-    <div class="title">
-        <h1>ITS-Maths</h1>
-    </div>
-    <div class="menu">
+<div id="content">
+    <span class="slide">
+        <a href="#" onclick="openSlideMenu();">
+            <i class="fa fa-bars" style="font-size:36px"></i>
+        </a>
+    </span>
+    <div id="menu" class="nav">
+        <a href="#" class="close" onclick="closeSlideMenu();">
+            <i class="fa fa-times" style="font-size:36px"></i>
+        </a>
         <a href="">Home</a>
         <a href="">Profile</a>
         <a href="">Logout</a>
     </div>
+    <nav class="n1">
+    <div class="title">
+        <h1>ITS-Maths</h1>
+    </div>
 </nav>
+
 <div>
 {% with messages = get_flashed_messages(with_categories=true) %}
   {% if messages %}
-<div class="alert alert-success" role="alert">
+<div class="alert alert-info" role="alert">
+     <span class="closebtn">&times;</span>
     {% for message in get_flashed_messages() %}
   <h4 class="alert-heading">{{ message }}</h4>
     {% endfor %}
@@ -339,6 +433,6 @@ countButton.onclick = function(){
 </form>
 
 
-
+</div>
 </body>
 </html>
