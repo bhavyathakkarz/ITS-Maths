@@ -194,7 +194,11 @@ countButton.onclick = function(){
     if(count == 2) {displayCount[1].innerHTML = "Hint 2 :{{ hints.h2 }}\n" ;}
     else {displayCount[2].innerHTML = "Hint 3 :{{ hints.h3 }}\n" ;}
   }
-  document.querySelector(".myform").setAttribute("action","score/"+count+"/"+feedcount)
+  }
+
+  var subbutton = document.getElementById("b1");
+  subbutton.onclick = function(){
+     document.querySelector(".myform").setAttribute("action","score/"+count+"/"+feedcount)
   }
 }
 
@@ -307,7 +311,7 @@ for (i = 0; i < close.length; i++) {
         </tr>
     </table>
     <br><br>
-    <input id="b1" type="submit" value="Submit" onclick="submission()">
+    <input id="b1" type="submit" value="Submit">
     <input type="button" class="hint-btn" id="hint-btn" value="Hint" target = "_self">
 </form>
 
