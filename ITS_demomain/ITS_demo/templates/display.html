@@ -6,134 +6,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
-    <style>
-    .nav{
-        height : 100%;
-        width : 0;
-        position : fixed;
-        z-index : 1;
-        top : 0;
-        left : 0;
-        background-color : #111;
-        opacity : .9;
-        overflow-x : hidden;
-        padding-top : 60px;
-        transition : .7s;
-    }
-
-    .nav a{
-        display:block;
-        padding : 20px 30px;
-        font-size : 30px;
-        text-decoration : none;
-        color : #ccc;
-    }
-
-    .nav a:hover{
-        color : #fff;
-        transition:.4s;
-    }
-
-    .nav .close{
-        position:absolute;
-        top:0;
-        right:22px;
-        margin-left : 50px;
-    }
-
-    .slide a{
-        color : #000;
-    }
-
-    #content {
-        padding:20px;
-        transition : margin-left .7s;
-        overflow : hidden;
-        width : 100%;
-    }
-        *{
-        margin:0;
-        padding:0;
-        box-sizing:border-box;
-        }
-        .n1{
-        width:100vw;
-        height:10vh;
-        background-image:linear-gradient(to top,#c3f5ff 80%, white 20%);
-        display:flex;
-        justify-content:space-around;
-        align-items:center;
-        }
-        .title{
-        width:40%;
-        }
-        .title h1{
-        padding:18%;
-        color:#0984e3;
-        letter-spacing:1px;
-        text-transform:uppercase;
-        text-decoration:underline;
-        animation:anm 2s linear infinite;
-        animation-direction:alternate;
-        }
-        @keyframes anm{
-        from{padding-left:40%;}
-        to{padding-right:40%;}
-        }
-        .menu{
-        width:60%;
-        padding-left:55px;
-        display:flex;
-        justify-content:space-around;
-        align-items:center;
-        }
-        .menu a{
-        text-decoration:none;
-        font-size:16px;
-        color:black;
-        font-size:20px;
-        position:relative;
-        font-weight:bold;
-        text-transform:uppercase;
-        }
-        .menu a:before{
-        content:"";
-        position:absolute;
-        top:100%;
-        left:0%;
-        height:3px;
-        width:0;
-        background-color:black;
-        transition:all 0.5s linear;
-        }
-        .menu a:hover:before{
-        width:100%;
-        background-color:blue;
-        }
-        .correct{
-        display:none;
-        }
-        .wrong{
-        display:none;
-        }
-        #countvalue{
-        display:none;
-        }
-.closebtn {
-  margin-left: 15px;
-  color: white;
-  font-weight: bold;
-  float: right;
-  font-size: 22px;
-  line-height: 20px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.closebtn:hover {
-  color: black;
-}
-    </style>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static' , filename='css/q1style.css') }}">
+    <script type="text/javascript" src="{{ url_for('static' , filename='js/q1script.js') }}"></script>
 </head>
 <script type="text/javascript" src="http://ajax.googleapis.com/
 ajax/libs/jquery/1.5/jquery.min.js"></script>
@@ -147,10 +21,10 @@ ajax/libs/jquery/1.5/jquery.min.js"></script>
 <script src="semantic/dist/semantic.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script type="text/javascript">
-
-var x = document.getElementsByClassName("correct");
+    var x = document.getElementsByClassName("correct");
 var y = document.getElementsByClassName("wrong");
 var feedcount = 0;
+
 function check0()
 {
 	if(document.getElementsByTagName("input")[0].value == {{ answer.b0 }})
@@ -164,22 +38,23 @@ function check0()
         $(x[0]).hide();
         $(y[0]).show();
 	    document.getElementsByTagName("input")[0].value = "";
-	    swal({
-  title: "Oops, Looks like you divided wrong ",
-  text: "for example, if you divide 9/4 then quotient is 2 and remainder is 9-(4*2) = 1",
-  icon: "error",
-  button: true,
-  dangerMode: true,
-})
-.then((willDelete) => {
-  if (willDelete) {
-    swal("Now, try again", {
+	    swal(
+	    {
+          title: "Oops, Looks like you divided wrong ",
+          text: "for example, if you divide 9/4 then quotient is 2 and remainder is 9-(4*2) = 1",
+          icon: "error",
+          button: true,
+          dangerMode: true,
+        }
+       )
+        .then((willDelete) => {
+          if (willDelete) {
+            swal("Now, try again", {
 
-      icon: "success",
-    });
-  }
-});
-
+              icon: "success",
+            });
+          }
+        });
 	 }
 }
 
@@ -302,6 +177,7 @@ function check4()
 });
 	}
 }
+
 window.onload = function() {
 var count = 0;
 
@@ -322,12 +198,14 @@ countButton.onclick = function(){
   }
 }
 
-function openSlideMenu(){
+function openSlideMenu()
+{
     document.getElementById('menu').style.width = '250px';
     document.getElementById('content').style.marginLeft = '250px';
 }
 
-function closeSlideMenu(){
+function closeSlideMenu()
+{
     document.getElementById('menu').style.width = '0px';
     document.getElementById('content').style.marginLeft = '0px';
 }
@@ -342,6 +220,7 @@ for (i = 0; i < close.length; i++) {
     setTimeout(function(){ div.style.display = "none"; }, 600);
   }
 }
+
 </script>
 
 <body>
