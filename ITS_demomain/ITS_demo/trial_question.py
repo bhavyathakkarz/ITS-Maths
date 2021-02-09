@@ -28,33 +28,31 @@ def question():
     hint1 = 'Try dividing numerator by denominator'
     hint2 = 'After dividing N/D, quotient ='+str(quo)+' remainder = '+str(rem)
     hint3 = 'Mixed Fraction Answer :'+str(quo)+" ("+str(rem)+"/"+str(operand.denominator)+")"
-    hints = {'h1': hint1, 'h2':hint2, 'h3': hint3}
+    hints = {'h1': hint1, 'h2': hint2, 'h3': hint3}
     return render_template('display.html', answer=answer, hints=hints)
 
 
-@app.route('/score/<counter>', methods=['POST'])
-def score(counter):
+@app.route('/score/<counter>/<feedback>', methods=['POST'])
+def score(counter, feedback):
     if request.method == 'POST':
-        marks = 25-(int(counter)*5)
+        marks = 25-(int(counter)*5) - (int(feedback)*2)
         print(marks)
         if marks == 25:
             comment = "Well Done!!!"
-        elif marks == 20:
+        elif marks >= 20 and marks < 25:
             comment = "You have just about mastered it"
-        elif marks == 15:
+        elif marks >= 15 and marks < 20:
             comment = "Keep working on it you are improving"
         else:
             comment = "That's not half bad"
     else:
         print("Pass")
 
-#    result = {'marks': marks, 'comment': comment}
     show_message1 = 'Your points : '+str(marks)+'/25.'
     print(show_message1)
     flash(show_message1)
     flash(comment)
     return redirect(url_for('question'))
-#    return render_template('card.html',result=result)
 
 
 app.secret_key = 'super secret key'
