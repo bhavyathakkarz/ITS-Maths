@@ -15,7 +15,12 @@ Image_folder = os.path.join('static', 'images')
 app.config['UPLOAD_FOLDER'] = Image_folder
 full_filename = os.path.join(app.config['UPLOAD_FOLDER'], 'cross.jpg')
 
-
+@app.route("/")
+def index():
+    return render_template('index.html')
+@app.route("/login")
+def login():
+    return redirect(url_for('question'))
 @app.route("/")
 def question():
     operand = random.choice(values)
