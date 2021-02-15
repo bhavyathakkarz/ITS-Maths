@@ -14,6 +14,8 @@ Image_folder = os.path.join('static', 'images')
 app.config['UPLOAD_FOLDER'] = Image_folder
 full_filename = os.path.join(app.config['UPLOAD_FOLDER'], 'cross.jpg')
 
+qtscnt=0
+scorecnt=0
 
 @app.route("/")
 def index():
@@ -48,6 +50,8 @@ def q1():
 
 @app.route("/mixed-fraction")
 def question():
+    print(qtscnt)
+    print(scorecnt)
     num = random.randint(1, 100)
     den = random.randint(1, 25)
     while num < den:
@@ -67,7 +71,12 @@ def question():
 @app.route('/score/<counter>/<feedback>', methods=['POST'])
 def score(counter, feedback):
     if request.method == 'POST':
+        global scorecnt,qtscnt
         marks = 25-(int(counter)*5) - (int(feedback)*2)
+        scorecnt+=marks
+        qtscnt+=1
+        print(scorecnt)
+        print(qtscnt)
         print(marks)
         if marks == 25:
             comment = "Well Done!!!"
@@ -81,8 +90,12 @@ def score(counter, feedback):
         print("Pass")
 
     show_message1 = 'Your points : '+str(marks)+'/25.'
+    show_message2='Total points : '+str(scorecnt)
+    show_message3='Total Question :'+str(qtscnt)
     print(show_message1)
     flash(show_message1)
+    flash(show_message2)
+    flash(show_message3)
     flash(comment)
     return redirect(url_for('question'))
 
