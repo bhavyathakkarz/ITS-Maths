@@ -260,7 +260,6 @@ for (i = 0; i < close.length; i++) {
         <h1>ITS-Maths</h1>
     </div>
 </nav>
-
 <div>
 {% with messages = get_flashed_messages(with_categories=true) %}
   {% if messages %}
@@ -278,6 +277,11 @@ for (i = 0; i < close.length; i++) {
 <div class = "showhints" id="showhint2" style="position:absolute;top:50; left:35%; top:50px; height:200px; width:200px;"></div>
 <div class = "showhints" id="showhint3" style="position:absolute;top:80%; left:35%; top:100px; height:200px; width:200px;"></div>
 </div>
+    <div>
+        <label for="file">Downloading progress:</label>
+<progress id="file" value="{{scoredict.score}}" max="{{scoredict.total}}"> {{scoredict.tcp}} </progress>
+        <h3>Question attemted:{{scoredict.totalqts}}</h3>
+    </div>
 <form method="post" action= "{{url_for('score',counter = 0, feedback = 0)}}" class="myform" id="f1">
     {{ answer.que }}
     <br><br>
