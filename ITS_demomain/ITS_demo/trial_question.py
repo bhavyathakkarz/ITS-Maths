@@ -30,6 +30,7 @@ def login():
 @app.route("/mixed-fraction1", methods=['POST'])
 def q1():
     if request.method == 'POST':
+        global qtscnt,scorecnt
         num = random.randint(1, 100)
         den = random.randint(1, 25)
         while num < den:
@@ -38,18 +39,23 @@ def q1():
         quo = num // den
         rem = num % den
         box_ans = [quo, rem, quo, rem, den]
+        qtscnt+=1
+        total=qtscnt*25
         answer = {'que': que, 'b0': box_ans[0], 'b1': box_ans[1], 'b2': box_ans[2], 'b3': box_ans[3], 'b4': box_ans[4]}
         hint1 = 'Try dividing numerator by denominator'
         hint2 = 'After dividing N/D, quotient =' + str(quo) + ' remainder = ' + str(rem)
         hint3 = 'Mixed Fraction Answer :' + str(quo) + " (" + str(rem) + "/" + str(den) + ")"
         hints = {'h1': hint1, 'h2': hint2, 'h3': hint3}
-        return render_template('display.html', answer=answer, hints=hints)
+        tcp = (scorecnt / total) * 100
+        scoredict={'score':scorecnt,'total':total,'totalqts':qtscnt,'tcp':tcp}
+        return render_template('display.html', answer=answer, hints=hints,scoredict=scoredict)
     else:
         return render_template('login.html')
 
 
 @app.route("/mixed-fraction")
 def question():
+    global qtscnt, scorecnt
     print(qtscnt)
     print(scorecnt)
     num = random.randint(1, 100)
@@ -65,7 +71,11 @@ def question():
     hint2 = 'After dividing N/D, quotient =' + str(quo) + ' remainder = ' + str(rem)
     hint3 = 'Mixed Fraction Answer :' + str(quo) + " (" + str(rem) + "/" + str(den) + ")"
     hints = {'h1': hint1, 'h2': hint2, 'h3': hint3}
-    return render_template('display.html', answer=answer, hints=hints)
+    qtscnt+=1
+    total = qtscnt * 25
+    tcp=(scorecnt/total)*100
+    scoredict = {'score': scorecnt, 'total': total, 'totalqts': qtscnt,'tcp':tcp}
+    return render_template('display.html', answer=answer, hints=hints,scoredict=scoredict)
 
 
 @app.route('/score/<counter>/<feedback>', methods=['POST'])
@@ -74,7 +84,7 @@ def score(counter, feedback):
         global scorecnt,qtscnt
         marks = 25-(int(counter)*5) - (int(feedback)*2)
         scorecnt+=marks
-        qtscnt+=1
+
         print(scorecnt)
         print(qtscnt)
         print(marks)
