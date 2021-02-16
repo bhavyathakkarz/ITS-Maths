@@ -198,7 +198,15 @@ countButton.onclick = function(){
 
   var subbutton = document.getElementById("b1");
   subbutton.onclick = function(){
-     document.querySelector(".myform").setAttribute("action","score/"+count+"/"+feedcount)
+     document.querySelector(".myform").setAttribute("action","score/"+count+"/"+feedcount);
+     function time(){
+     var s=document.getElementById("scre");
+     s.style.display="none";
+     }
+     var d=setTimeout(time,500);
+     clearInterval(d);
+<!-- setTimeout(function(){s.style.display="none";},500);-->
+
   }
 }
 
@@ -221,7 +229,12 @@ for (i = 0; i < close.length; i++) {
   close[i].onclick = function(){
     var div = this.parentElement;
     div.style.opacity = "0";
-    setTimeout(function(){ div.style.display = "none"; }, 600);
+    setTimeout(time,100);
+    function time(){
+     var s=document.getElementById("scre");
+     alert("Bhavya");
+     s.style.display="none";
+    }
   }
 }
 
@@ -251,7 +264,7 @@ for (i = 0; i < close.length; i++) {
 <div>
 {% with messages = get_flashed_messages(with_categories=true) %}
   {% if messages %}
-<div class="alert alert-info" role="alert">
+<div class="alert alert-info" role="alert" id="scre">
      <span class="closebtn">&times;</span>
     {% for message in get_flashed_messages() %}
   <h4 class="alert-heading">{{ message }}</h4>
