@@ -1,3 +1,4 @@
+
 .nav{
         height : 100%;
         width : 0;
@@ -80,9 +81,8 @@
         }
         .menu a{
         text-decoration:none;
-        font-size:16px;
         color:black;
-        font-size:20px;
+        font-size:50px;
         position:relative;
         font-weight:bold;
         text-transform:uppercase;
@@ -123,4 +123,8 @@
 
 .closebtn:hover {
   color: black;
+}
+
+body {
+    font-size : 1rem;
 }
