@@ -101,6 +101,29 @@ def score(counter, feedback):
     flash(comment)
     return redirect(url_for('question'))
 
+@app.route("/algebra-add")
+def horizontal_add():
+    coeff = random.sample(range(-50,50),6) #6 coefficient
+    varx = ['x','x2','x3'] #x3
+    vary = ['y','y2','y3'] #y2
+    varz = ['z','z2','y3'] #z
+    rx = random.choice(varx)
+    ry = random.choice(vary)
+    #rz = random.choice(varz)
+    print(coeff)
+    haddque = 'Add horizontally '+str(coeff[0])+rx+'+'+str(coeff[1])+ry+','+str(coeff[2])+rx+'+'+str(coeff[3])+ry+','+str(coeff[4])+rx+'+'+str(coeff[5])+ry
+    print(haddque)
+    x_like = coeff[0:5:2]
+    x_sum = sum(x_like)
+    y_like = coeff[1:6:2]
+    y_sum = sum(y_like)
+    answer = {'que':haddque,'varx':rx,'vary':ry,'coeff':coeff,'x_like':x_like,'y_like':y_like,'x_sum':x_sum,'y_sum':y_sum}
+    h1 = 'Rearrange into like terms (coefficients with same variable and power)'
+    h2 = 'Add coefficientts of like terms'
+    h3 = 'Solution : '+str(x_sum)+rx+'+'+str(y_sum)+ry+'.'
+    hints = {'h1':h1,'h2':h2,'h3':h3}    
+    return render_template('algebra_add.html',answer=answer, hints = hints)
+
 
 app.secret_key = 'super secret key'
 app.run(debug=True)
