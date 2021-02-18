@@ -30,6 +30,7 @@ def login():
 @app.route("/mixed-fraction1", methods=['POST'])
 def q1():
     if request.method == 'POST':
+        global qtscnt,scorecnt
         num = random.randint(1, 100)
         den = random.randint(1, 25)
         while num < den:
@@ -43,13 +44,16 @@ def q1():
         hint2 = 'After dividing N/D, quotient =' + str(quo) + ' remainder = ' + str(rem)
         hint3 = 'Mixed Fraction Answer :' + str(quo) + " (" + str(rem) + "/" + str(den) + ")"
         hints = {'h1': hint1, 'h2': hint2, 'h3': hint3}
-        return render_template('display.html', answer=answer, hints=hints)
+        total = qtscnt * 25
+        scoredict = {'score': scorecnt, 'total': total, 'totalqts': qtscnt, 'tcp': 0}
+        return render_template('display.html', answer=answer, hints=hints, scoredict=scoredict)
     else:
         return render_template('login.html')
 
 
 @app.route("/mixed-fraction")
 def question():
+    global qtscnt, scorecnt
     print(qtscnt)
     print(scorecnt)
     num = random.randint(1, 100)
@@ -65,16 +69,19 @@ def question():
     hint2 = 'After dividing N/D, quotient =' + str(quo) + ' remainder = ' + str(rem)
     hint3 = 'Mixed Fraction Answer :' + str(quo) + " (" + str(rem) + "/" + str(den) + ")"
     hints = {'h1': hint1, 'h2': hint2, 'h3': hint3}
-    return render_template('display.html', answer=answer, hints=hints)
+    total = qtscnt * 25
+    tcp = (scorecnt/total)*100
+    scoredict = {'score': scorecnt, 'total': total, 'totalqts': qtscnt, 'tcp': tcp}
+    return render_template('display.html', answer=answer, hints=hints, scoredict=scoredict)
 
 
 @app.route('/score/<counter>/<feedback>', methods=['POST'])
 def score(counter, feedback):
     if request.method == 'POST':
-        global scorecnt,qtscnt
+        global scorecnt, qtscnt
         marks = 25-(int(counter)*5) - (int(feedback)*2)
-        scorecnt+=marks
-        qtscnt+=1
+        scorecnt += marks
+        qtscnt += 1
         print(scorecnt)
         print(qtscnt)
         print(marks)
@@ -90,12 +97,7 @@ def score(counter, feedback):
         print("Pass")
 
     show_message1 = 'Your points : '+str(marks)+'/25.'
-    show_message2='Total points : '+str(scorecnt)
-    show_message3='Total Question :'+str(qtscnt)
-    print(show_message1)
     flash(show_message1)
-    flash(show_message2)
-    flash(show_message3)
     flash(comment)
     return redirect(url_for('question'))
 

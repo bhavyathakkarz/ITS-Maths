@@ -241,7 +241,8 @@ for (i = 0; i < close.length; i++) {
 </script>
 
 <body>
-<div id="content">
+    <nav class="n1">
+      <div id="content">
     <span class="slide">
         <a href="#" onclick="openSlideMenu();">
             <i class="fa fa-bars" style="font-size:36px"></i>
@@ -255,11 +256,12 @@ for (i = 0; i < close.length; i++) {
         <a href="">Profile</a>
         <a href="{{ url_for('index') }}">Logout</a>
     </div>
-    <nav class="n1">
+          </div>
     <div class="title">
         <h1>ITS-Maths</h1>
     </div>
-</nav>
+
+        </nav>
 
 <div>
 {% with messages = get_flashed_messages(with_categories=true) %}
@@ -278,6 +280,11 @@ for (i = 0; i < close.length; i++) {
 <div class = "showhints" id="showhint2" style="position:absolute;top:50; left:35%; top:50px; height:200px; width:200px;"></div>
 <div class = "showhints" id="showhint3" style="position:absolute;top:80%; left:35%; top:100px; height:200px; width:200px;"></div>
 </div>
+    <div>
+        <label for="file">Your progress:</label>
+<progress id="file" value="{{scoredict.score}}" max="{{scoredict.total}}"></progress>{{scoredict.tcp}}%
+        <h3 style="display:inline;padding-left: 75%;">Question attemted:{{scoredict.totalqts}}</h3>
+    </div>
 <form method="post" action= "{{url_for('score',counter = 0, feedback = 0)}}" class="myform" id="f1">
     {{ answer.que }}
     <br><br>
@@ -329,6 +336,6 @@ for (i = 0; i < close.length; i++) {
 </form>
 
 
-</div>
+
 </body>
 </html>
